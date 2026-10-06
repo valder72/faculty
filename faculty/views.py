@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404, render
 
-from .models import Department, FacultyInfo, Program
+from .models import Department, FacultyInfo, Program, ExchangeProgram
 
 
 # Create your views here.
@@ -32,3 +32,12 @@ def department_detail(request, department_id):
         "departments/detail.html",
         {"department": department, "professors": professors},
     )
+
+def exchange_list(request):
+    programs = ExchangeProgram.objects.all()
+    return render(request, "exchange/list.html", {"programs": programs})
+
+
+def exchange_detail(request, exchange_id):
+    detail = get_object_or_404(ExchangeProgram, pk=exchange_id)
+    return render(request, "exchange/detail.html", {"detail": detail})
