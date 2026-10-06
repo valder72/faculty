@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Факультет економічних наук | НаУКМА{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-container">
+      <a href="{% url 'faculty:home' %}" class="logo-link">
+        <h1>ФЕН НаУКМА</h1>
+      </a>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="{% url 'faculty:home' %}">Головна</a></li>
+          <li><a href="{% url 'faculty:program_list' %}">Спеціальності</a></li>
+          <li><a href="{% url 'faculty:department_list' %}">Кафедри</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    {% block content %}
+    {% endblock %}
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 Факультет економічних наук Національного університету «Києво-Могилянська академія»</p>
+  </footer>
+</body>
+</html>

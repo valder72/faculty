@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Освітні програми | ФЕН НаУКМА{% endblock %}
+
+{% block content %}
+<h2 class="section-title">Освітні програми факультету</h2>
+
+<div class="grid-cards">
+  {% for program in programs %}
+    <article class="card">
+      <h3>
+        <a href="{% url 'faculty:program_detail' program.id %}">{{ program.name }}</a>
+        <span class="badge badge-code">{{ program.code }}</span>
+      </h3>
+      <p class="card-meta">
+        Кафедра: <a href="{% url 'faculty:department_detail' program.department.id %}">{{ program.department.name }}</a>
+      </p>
+
+      <p>{{ program.description|truncatewords:50 }}</p>
+
+      <div style="margin-top: 1rem; border-top: 1px solid var(--border-color); padding-top: 0.8rem;">
+        <p><strong>Координатор набору:</strong> {{ program.coordinator_name }}</p>
+        <p><strong>Контакт:</strong> {{ program.coordinator_contact }}</p>
+      </div>
+      <p style="margin-top: 0.5rem;">
+        <a href="{% url 'faculty:program_detail' program.id %}">Детальніше про програму &rarr;</a>
+      </p>
+    </article>
+  {% empty %}
+    <p>Наразі інформація про програми оновлюється.</p>
+  {% endfor %}
+</div>
+{% endblock %}

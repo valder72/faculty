@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}Кафедри | ФЕН НаУКМА{% endblock %}
+
+{% block content %}
+<h2 class="section-title">Кафедри факультету</h2>
+
+<div class="grid-cards">
+  {% for dept in departments %}
+    <article class="card">
+      <h3>
+        <a href="{% url 'faculty:department_detail' dept.id %}">{{ dept.name }}</a>
+      </h3>
+      <p><strong>Завідувач кафедри:</strong> {{ dept.head_name }}</p>
+
+      <div style="margin-top: 1rem;">
+        <strong>Випускова для спеціальностей:</strong>
+        <ul class="disciplines-list">
+          {% for prog in dept.programs.all %}
+            <li>
+              <a href="{% url 'faculty:program_detail' prog.id %}">{{ prog.code }} {{ prog.name }}</a>
+            </li>
+          {% empty %}
+            <li>Спеціальності відсутні</li>
+          {% endfor %}
+        </ul>
+      </div>
+      <p style="margin-top: 1rem;">
+        <a href="{% url 'faculty:department_list' dept.id %}">Склад кафедри та деталі &rarr;</a>
+      </p>
+    </article>
+  {% empty %}
+    <p>Інформація про кафедри відсутня.</p>
+  {% endfor %}
+</div>
+{% endblock %}

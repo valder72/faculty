@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ program.name }} | ФЕН НаУКМА{% endblock %}
+
+{% block content %}
+<article class="card">
+  <span class="badge badge-code">Код: {{ program.code }}</span>
+  <h2 style="margin-top: 0.5rem;">{{ program.name }}</h2>
+
+  <p class="card-meta">
+    Випускова кафедра:
+    <a href="{% url 'faculty:department_detail' program.department.id %}">{{ program.department.name }}</a>
+  </p>
+
+  <section style="margin: 1.5rem 0;">
+    <h3>Опис спеціальності</h3>
+    <div>
+      {{ program.description|linebreaks }}
+    </div>
+  </section>
+
+  <section style="margin: 1.5rem 0;">
+    <h3>Дисципліни, що вивчаються</h3>
+    <ul class="disciplines-list">
+    {% for discipline in program.disciplines.all %}
+        <li>{{ discipline.name }}</li>
+    {% empty %}
+        <li>Список дисциплін уточнюється.</li>
+    {% endfor %}
+    </ul>
+  </section>
+
+  <section style="margin-top: 1.5rem; background: var(--bg-main); padding: 1rem; border-radius: 4px;">
+    <h3>Приймальна комісія та координація набору</h3>
+    <p><strong>Координатор:</strong> {{ program.coordinator_name }}</p>
+    <p><strong>Контактний зв'язок:</strong> {{ program.coordinator_contact }}</p>
+  </section>
+
+  <p style="margin-top: 1.5rem;">
+    <a href="{% url 'faculty:program_list' %}">&larr; Повернутися до списку спеціальностей</a>
+  </p>
+</article>
+{% endblock %}

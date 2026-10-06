@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}Головна | ФЕН НаУКМА{% endblock %}
+
+{% block content %}
+<section class="card">
+  <h2 class="section-title">{{ faculty.title|default:"Факультет економічних наук" }}</h2>
+  <div class="content-body">
+    {% if faculty.description %}
+      {{ faculty.description|linebreaks }}
+    {% else %}
+      <p>Факультет економічних наук НаУКМА готує фахівців у сфері фінансів, економіки та менеджменту з акцентом на фундаментальну аналітичну підготовку, академічну доброчесність та інтеграцію у світову бізнес-спільноту.</p>
+    {% endif %}
+  </div>
+</section>
+
+<div class="grid-cards">
+  <div class="card">
+    <h3>Контакти деканату</h3>
+    {% if faculty.contact %}
+      {{ faculty.contact|linebreaks }}
+    {% else %}
+      <p><strong>Адреса:</strong> м. Київ, вул. Волоська, 8/5, 6 корпус, кімн. 402</p>
+      <p><strong>Електронна пошта:</strong> fen@ukma.edu.ua</p>
+      <p><strong>Телефон:</strong> +38 (044) 425-60-42</p>
+    {% endif %}
+  </div>
+
+  <div class="card">
+    <h3>Швидка навігація</h3>
+    <p>Ознайомтеся з освітніми напрямами та науковою базою факультету:</p>
+    <ul class="disciplines-list">
+      <li><a href="{% url 'faculty:program_list' %}">Перелік освітніх програм (бакалаврат і магістратура)</a></li>
+      <li><a href="{% url 'faculty:department_list' %}">Кафедри та викладацький склад</a></li>
+    </ul>
+  </div>
+</div>
+{% endblock %}

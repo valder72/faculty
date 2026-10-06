@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ department.name }} | ФЕН НаУКМА{% endblock %}
+
+{% block content %}
+<article class="card">
+  <h2>{{ department.name }}</h2>
+  <p class="card-meta"><strong>Завідувач кафедри:</strong> {{ department.head_name }}</p>
+
+  <section style="margin-top: 1.5rem;">
+    <h3>Спеціальності кафедри</h3>
+    <ul class="disciplines-list">
+      {% for prog in department.programs.all %}
+        <li><a href="{% url 'faculty:program_detail' prog.id %}">{{ prog.code }} {{ prog.name }}</a></li>
+      {% empty %}
+        <li>Кафедра не закріплена як випускова за окремими спеціальностями.</li>
+      {% endfor %}
+    </ul>
+  </section>
+
+  <section style="margin-top: 2rem;">
+    <h3>Викладацький склад</h3>
+    <table class="staff-table">
+      <thead>
+        <tr>
+          <th>ПІБ викладача</th>
+          <th>Посада</th>
+          <th>Науковий ступінь / Вчене звання</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for prof in professors %}
+          <tr>
+            <td><strong>{{ prof.name }}</strong></td>
+            <td>{{ prof.position }}</td>
+            <td>{{ prof.degree }}</td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="3">Дані про викладачів оновлюються.</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </section>
+
+  <p style="margin-top: 1.5rem;">
+    <a href="{% url 'faculty:department_list' %}">&larr; Повернутися до списку кафедр</a>
+  </p>
+</article>
+{% endblock %}
