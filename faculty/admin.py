@@ -1,6 +1,13 @@
 from django.contrib import admin
 
-from .models import Department, Discipline, FacultyInfo, Program, Teacher, ExchangeProgram
+from .models import (
+    Department,
+    Discipline,
+    ExchangeProgram,
+    FacultyInfo,
+    Program,
+    Teacher,
+)
 
 
 # Register your models here.
@@ -31,4 +38,4 @@ class FacultyInfoAdmin(admin.ModelAdmin):
 
 @admin.register(ExchangeProgram)
 class ExchangeProgramAdmin(admin.ModelAdmin):
-    list_display = ["university", "places", "deadline"]
+    list_display = ["university", "country", "places", "deadline"]

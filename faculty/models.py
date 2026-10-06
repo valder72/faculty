@@ -60,7 +60,7 @@ class FacultyInfo(models.Model):
 
 class ExchangeProgram(models.Model):
     university = models.CharField(max_length=100)
-    country = models.CharField(max_length=100, blank=True, null=True)
+    country = models.CharField(max_length=100, blank=True, default="")
     languages = models.CharField(max_length=100)
     places = models.IntegerField()
     deadline = models.DateField()
