@@ -18,7 +18,7 @@
 {% endblock %}
 {% block content %}
   <div class="row g-4">
-    {% for program in programs %}
+    {% for item in programs %}
       <div class="col-md-6 col-lg-4">
         <article class="card h-100 program-card">
           <div class="card-body p-4 d-flex flex-column">
@@ -26,38 +26,43 @@
               <span class="badge bg-primary-subtle text-primary border border-primary-subtle px-2 py-1">
                 <i class="bi bi-globe me-1"></i>Програма обміну
               </span>
-              {% if program.country %}
-                <small class="text-muted"><i class="bi bi-geo-alt me-1"></i>{{ program.country }}</small>
+              {% if item.deadline >= today %}
+                <span class="badge badge-status-open">Прийом триває</span>
+              {% else %}
+                <span class="badge badge-status-closed">Прийом завершено</span>
               {% endif %}
             </div>
+            {% if item.country %}
+              <div class="text-muted small mb-1"><i class="bi bi-geo-alt me-1"></i>{{ item.country }}</div>
+            {% endif %}
             <h2 class="h5 fw-bold mb-2">
-              <a href="{% url 'faculty:exchange_detail' program.id %}"
-                 class="program-title-link">{{ program.university }}</a>
+              <a href="{% url 'faculty:exchange_detail' item.id %}"
+                 class="program-title-link">{{ item.university }}</a>
             </h2>
-            <p class="program-desc text-secondary flex-grow-1">{{ program.description }}</p>
+            <p class="program-desc text-secondary flex-grow-1">{{ item.description }}</p>
             <div class="coordinator-box mt-auto">
               <div class="mb-2">
                 <div class="coord-label">
                   <i class="bi bi-translate me-1"></i>Мови навчання
                 </div>
-                <div class="fw-medium text-dark">{{ program.languages }}</div>
+                <div class="fw-medium text-dark">{{ item.languages }}</div>
               </div>
               <div class="mb-2">
                 <div class="coord-label">
                   <i class="bi bi-people me-1"></i>Кількість місць
                 </div>
-                <div class="fw-medium text-dark">{{ program.places }}</div>
+                <div class="fw-medium text-dark">{{ item.places }}</div>
               </div>
               <div>
                 <div class="coord-label">
                   <i class="bi bi-calendar-event me-1"></i>Дедлайн подачі
                 </div>
-                <div class="fw-semibold text-danger">{{ program.deadline|date:"d.m.Y" }}</div>
+                <div class="fw-semibold text-danger">{{ item.deadline|date:"d.m.Y" }}</div>
               </div>
             </div>
           </div>
           <div class="card-footer px-4 py-3 bg-transparent">
-            <a href="{% url 'faculty:exchange_detail' program.id %}"
+            <a href="{% url 'faculty:exchange_detail' item.id %}"
                class="btn btn-outline-primary btn-sm w-100 fw-semibold">
               Детальніше про програму <i class="bi bi-arrow-right ms-1"></i>
             </a>

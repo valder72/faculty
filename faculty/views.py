@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404, render
-
+from datetime import date
 from .models import Department, FacultyInfo, Program, ExchangeProgram
 
 
@@ -35,9 +35,16 @@ def department_detail(request, department_id):
 
 def exchange_list(request):
     programs = ExchangeProgram.objects.all()
-    return render(request, "exchange/list.html", {"programs": programs})
-
+    today = date.today()
+    return render(
+        request, "exchange/list.html", {"programs": programs, "today": today}
+    )
 
 def exchange_detail(request, exchange_id):
     detail = get_object_or_404(ExchangeProgram, pk=exchange_id)
-    return render(request, "exchange/detail.html", {"detail": detail})
+    today = date.today()
+    return render(
+        request,
+        "exchange/detail.html",
+        {"detail": detail, "item": detail, "today": today},
+    )
