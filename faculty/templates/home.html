@@ -1,0 +1,179 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Головна | Факультет економічних наук НаУКМА{% endblock %}
+{% block hero %}
+  <section class="hero-section">
+    <div class="container">
+      <div class="row align-items-center gy-4">
+        <div class="col-lg-8">
+          <div class="hero-badge mb-3">
+            <i class="bi bi-mortarboard-fill me-1"></i> НаУКМА • Економічна освіта
+          </div>
+          <h1 class="hero-title">{{ faculty.title|default:"Факультет економічних наук НаУКМА" }}</h1>
+          <p class="hero-lead">
+            Підготовка провідних аналітиків, економістів та фінансистів на принципах академічної доброчесності, європейських стандартів та критичного мислення.
+          </p>
+          <div class="d-flex flex-wrap gap-2 mt-4">
+            <a href="{% url 'faculty:program_list' %}" class="btn btn-hero-primary">
+              <i class="bi bi-mortarboard me-2"></i>Освітні програми
+            </a>
+            <a href="{% url 'faculty:department_list' %}"
+               class="btn btn-hero-secondary">
+              <i class="bi bi-building me-2"></i>Кафедри факультету
+            </a>
+          </div>
+        </div>
+        <div class="col-lg-4 text-center d-none d-lg-block">
+          <div class="hero-emblem-wrap">
+            <img src="{% static 'images/naukma.png' %}"
+                 alt="Герб НаУКМА"
+                 width="120"
+                 height="120"
+                 class="hero-emblem" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}
+{% block content %}
+  <div class="row g-4 mb-5">
+    <div class="col-lg-7">
+      <div class="card content-card h-100">
+        <div class="card-body p-4 p-md-5">
+          <div class="section-title-wrap mb-3">
+            <span class="section-subtitle">Інформація</span>
+            <h2 class="card-section-title">Про факультет</h2>
+          </div>
+          <div class="prose-content">
+            {% if faculty.description %}
+              {{ faculty.description|linebreaks }}
+            {% else %}
+              <p>
+                Факультет економічних наук (ФЕН) заснований у 2000 році. Наш слоган — «ЗРОСТАЙМО!». Ми поєднуємо принципи Liberal Arts Education (вільне творче навчання), широку базову економічну освіту на молодших курсах та профільну спеціалізацію на старших курсах із глибокою інтеграцією в бізнес-середовище.
+              </p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-5">
+      <div class="card content-card h-100">
+        <div class="card-body p-4 p-md-5">
+          <div class="section-title-wrap mb-3">
+            <span class="section-subtitle">Керівництво та звʼязок</span>
+            <h2 class="card-section-title">Контакти деканату</h2>
+          </div>
+          <ul class="contact-list list-unstyled mb-4">
+            {% if faculty.dean_name %}
+              <li class="contact-item">
+                <div class="contact-icon-box">
+                  <i class="bi bi-person-workspace"></i>
+                </div>
+                <div>
+                  <div class="contact-label">Декан факультету</div>
+                  <div class="contact-value fw-semibold">{{ faculty.dean_name }}</div>
+                </div>
+              </li>
+            {% endif %}
+            <li class="contact-item">
+              <div class="contact-icon-box">
+                <i class="bi bi-geo-alt-fill"></i>
+              </div>
+              <div>
+                <div class="contact-label">Адреса деканату</div>
+                <div class="contact-value">{{ faculty.address|default:"м. Київ, вул. Волоська, 8/5, 6 корпус, кімн. 406" }}</div>
+              </div>
+            </li>
+            <li class="contact-item">
+              <div class="contact-icon-box">
+                <i class="bi bi-envelope-fill"></i>
+              </div>
+              <div>
+                <div class="contact-label">Електронна пошта</div>
+                <div class="contact-value">
+                  {% if faculty.email %}
+                    <a href="mailto:{{ faculty.email }}">{{ faculty.email }}</a>
+                  {% else %}
+                    <a href="mailto:gluschenkosv@ukma.edu.ua">gluschenkosv@ukma.edu.ua</a>
+                  {% endif %}
+                </div>
+              </div>
+            </li>
+            <li class="contact-item">
+              <div class="contact-icon-box">
+                <i class="bi bi-telephone-fill"></i>
+              </div>
+              <div>
+                <div class="contact-label">Телефон деканату</div>
+                <div class="contact-value">
+                  {% if faculty.phone %}
+                    <a href="tel:{{ faculty.phone }}">{{ faculty.phone }}</a>
+                  {% else %}
+                    <a href="tel:+380444256042">+38 (044) 425-60-42</a>
+                  {% endif %}
+                </div>
+              </div>
+            </li>
+          </ul>
+          <div class="pt-2 border-top">
+            <div class="quick-links-title mb-2">Швидкі розділи:</div>
+            <div class="row g-2">
+              <div class="col-6">
+                <a href="{% url 'faculty:program_list' %}" class="quick-tile w-100">
+                  <i class="bi bi-mortarboard text-primary"></i> Програми
+                </a>
+              </div>
+              <div class="col-6">
+                <a href="{% url 'faculty:department_list' %}" class="quick-tile w-100">
+                  <i class="bi bi-building text-primary"></i> Кафедри
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="features-section mb-4">
+    <div class="text-center mb-4">
+      <span class="section-subtitle">Переваги навчання</span>
+      <h2 class="h3 fw-bold section-heading-center">Чому обирають ФЕН НаУКМА</h2>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-6 col-lg-4">
+        <div class="feature-item">
+          <div class="feature-icon">
+            <i class="bi bi-award-fill"></i>
+          </div>
+          <h3 class="feature-title">Викладачі-практики</h3>
+          <p class="feature-text">
+            Сертифіковані експерти CFA, ACCA, CAIA, FRM, фахівці Національного банку, EY, PwC та інвестиційних фондів.
+          </p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="feature-item">
+          <div class="feature-icon">
+            <i class="bi bi-globe-americas"></i>
+          </div>
+          <h3 class="feature-title">Міжнародна мобільність</h3>
+          <p class="feature-text">
+            Програми обміну Erasmus+, стипендіальні можливості та угоди подвійного диплома з європейськими університетами.
+          </p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="feature-item">
+          <div class="feature-icon">
+            <i class="bi bi-briefcase-fill"></i>
+          </div>
+          <h3 class="feature-title">Кар'єрний старт</h3>
+          <p class="feature-text">
+            Понад 90% випускників працевлаштовуються за спеціальністю на аналітичні посади ще до завершення навчання.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

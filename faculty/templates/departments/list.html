@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block title %}Кафедри | Факультет економічних наук НаУКМА{% endblock %}
+{% block hero %}
+  <div class="page-header">
+    <div class="container">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="{% url 'faculty:home' %}"><i class="bi bi-house me-1"></i>Головна</a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">Кафедри</li>
+        </ol>
+      </nav>
+      <h1 class="page-title">Кафедри факультету</h1>
+      <p class="page-subtitle">Науково-педагогічні підрозділи та академічні спільноти ФЕН НаУКМА</p>
+    </div>
+  </div>
+{% endblock %}
+{% block content %}
+  <div class="row g-4">
+    {% for dept in departments %}
+      <div class="col-md-6">
+        <article class="card h-100 department-card">
+          <div class="card-body p-4 d-flex flex-column">
+            <div class="d-flex align-items-center gap-2 mb-2">
+              <span class="badge bg-primary-subtle text-primary border border-primary-subtle px-2 py-1">
+                <i class="bi bi-building me-1"></i>Кафедра
+              </span>
+            </div>
+            <h2 class="h5 fw-bold mb-2">
+              <a href="{% url 'faculty:department_detail' dept.id %}"
+                 class="dept-title-link">{{ dept.name }}</a>
+            </h2>
+            <div class="dept-head-info mb-3 p-2 px-3 bg-light rounded-2 border">
+              <i class="bi bi-person-badge text-primary me-2"></i>
+              <span class="text-muted me-1">Завідувач:</span>
+              <span class="fw-semibold text-dark">{{ dept.head }}</span>
+            </div>
+            <div class="mt-2 flex-grow-1">
+              <div class="dept-programs-title mb-2">
+                <i class="bi bi-mortarboard me-1 text-success"></i>
+                Випускова кафедра для спеціальностей:
+              </div>
+              <ul class="dept-programs-list list-unstyled mb-0">
+                {% for prog in dept.programs.all %}
+                  <li class="mb-2">
+                    <a href="{% url 'faculty:program_detail' prog.id %}"
+                       class="dept-program-item d-flex align-items-center">
+                      <span class="badge-code me-2">{{ prog.code }}</span>
+                      <span class="text-dark fw-medium">{{ prog.name }}</span>
+                    </a>
+                  </li>
+                {% empty %}
+                  <li class="text-muted small fst-italic">Спеціальності наразі не закріплені.</li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+          <div class="card-footer px-4 py-3 bg-transparent">
+            <a href="{% url 'faculty:department_detail' dept.id %}"
+               class="btn btn-outline-primary btn-sm w-100 fw-semibold">
+              Склад кафедри та деталі <i class="bi bi-arrow-right ms-1"></i>
+            </a>
+          </div>
+        </article>
+      </div>
+    {% empty %}
+      <div class="col-12">
+        <div class="alert alert-info py-4 text-center">
+          <i class="bi bi-info-circle fs-4 d-block mb-2"></i>
+          Інформація про кафедри відсутня або оновлюється.
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}

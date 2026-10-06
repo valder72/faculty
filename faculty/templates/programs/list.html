@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block title %}Освітні програми | Факультет економічних наук НаУКМА{% endblock %}
+{% block hero %}
+  <div class="page-header">
+    <div class="container">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="{% url 'faculty:home' %}"><i class="bi bi-house me-1"></i>Головна</a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">Освітні програми</li>
+        </ol>
+      </nav>
+      <h1 class="page-title">Освітні програми факультету</h1>
+      <p class="page-subtitle">Перелік бакалаврських та магістерських спеціальностей ФЕН НаУКМА</p>
+    </div>
+  </div>
+{% endblock %}
+{% block content %}
+  <div class="row g-4">
+    {% for program in programs %}
+      <div class="col-md-6 col-lg-4">
+        <article class="card h-100 program-card">
+          <div class="card-body p-4 d-flex flex-column">
+            <div class="d-flex align-items-center justify-content-between mb-2">
+              <span class="badge-code">{{ program.code }}</span>
+              <small class="text-muted"><i class="bi bi-book me-1"></i>Спеціальність</small>
+            </div>
+            <h2 class="h5 fw-bold mb-2">
+              <a href="{% url 'faculty:program_detail' program.id %}"
+                 class="program-title-link">{{ program.name }}</a>
+            </h2>
+            <div class="program-dept-link mb-3">
+              <i class="bi bi-building me-1 text-primary"></i>
+              <a href="{% url 'faculty:department_detail' program.department.id %}">{{ program.department.name }}</a>
+            </div>
+            <p class="program-desc text-secondary flex-grow-1">{{ program.description|truncatewords:50 }}</p>
+            <div class="coordinator-box mt-auto">
+              <div class="coord-label">
+                <i class="bi bi-person-circle me-1"></i>Координатор набору
+              </div>
+              <div class="coord-name">{{ program.coordinator_name }}</div>
+              <div class="coord-contact">{{ program.coordinator_contact }}</div>
+            </div>
+          </div>
+          <div class="card-footer px-4 py-3 bg-transparent">
+            <a href="{% url 'faculty:program_detail' program.id %}"
+               class="btn btn-outline-primary btn-sm w-100 fw-semibold">
+              Детальніше про спеціальність <i class="bi bi-arrow-right ms-1"></i>
+            </a>
+          </div>
+        </article>
+      </div>
+    {% empty %}
+      <div class="col-12">
+        <div class="alert alert-info py-4 text-center">
+          <i class="bi bi-info-circle fs-4 d-block mb-2"></i>
+          Інформація про освітні програми оновлюється.
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}

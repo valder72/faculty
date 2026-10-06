@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block title %}{{ detail.university }} | Факультет економічних наук НаУКМА{% endblock %}
+{% block hero %}
+  <div class="page-header">
+    <div class="container">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="{% url 'faculty:home' %}"><i class="bi bi-house me-1"></i>Головна</a>
+          </li>
+          <li class="breadcrumb-item">
+            <a href="{% url 'faculty:exchange_list' %}">Академічна мобільність</a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">{{ detail.university }}</li>
+        </ol>
+      </nav>
+      <div class="d-flex flex-wrap align-items-center gap-3">
+        <span class="badge bg-primary-subtle text-primary border border-primary-subtle px-2 py-1 fs-6">
+          <i class="bi bi-globe me-1"></i>Програма обміну
+        </span>
+        {% if item.deadline >= today %}
+          <span class="badge badge-status-open">Прийом триває</span>
+        {% else %}
+          <span class="badge badge-status-closed">Прийом завершено</span>
+        {% endif %}
+        <h1 class="page-title mb-0">{{ item.university }}</h1>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+{% block content %}
+  <div class="row g-4">
+    <div class="col-lg-8">
+      <div class="card content-card mb-4">
+        <div class="card-body p-4 p-md-5">
+          <div class="section-title-wrap mb-3">
+            <span class="section-subtitle">Про програму</span>
+            <h2 class="card-section-title">Опис партнерської програми</h2>
+          </div>
+          <div class="prose-content mb-4">{{ detail.description|linebreaks }}</div>
+          <a href="{% url 'faculty:exchange_list' %}"
+             class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left me-1"></i>До списку програм
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="card content-card mb-4">
+        <div class="card-body p-4">
+          <div class="section-title-wrap mb-3">
+            <span class="section-subtitle">Умови участі</span>
+            <h3 class="card-section-title fs-5">Параметри програми</h3>
+          </div>
+          <div class="coordinator-box mb-3">
+            <div class="coord-label">
+              <i class="bi bi-translate me-1"></i>Мови навчання
+            </div>
+            <div class="fw-medium text-dark">{{ detail.languages }}</div>
+          </div>
+          <div class="coordinator-box mb-3">
+            <div class="coord-label">
+              <i class="bi bi-people me-1"></i>Кількість місць
+            </div>
+            <div class="fw-medium text-dark">{{ detail.places }}</div>
+          </div>
+          <div class="coordinator-box">
+            <div class="coord-label">
+              <i class="bi bi-calendar-event me-1"></i>Дедлайн подачі
+            </div>
+            <div class="fw-semibold text-danger">{{ detail.deadline|date:"d.m.Y" }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

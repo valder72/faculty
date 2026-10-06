@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+{% block title %}{{ department.name }} | Факультет економічних наук НаУКМА{% endblock %}
+{% block hero %}
+  <div class="page-header">
+    <div class="container">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="{% url 'faculty:home' %}"><i class="bi bi-house me-1"></i>Головна</a>
+          </li>
+          <li class="breadcrumb-item">
+            <a href="{% url 'faculty:department_list' %}">Кафедри</a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">{{ department.name }}</li>
+        </ol>
+      </nav>
+      <div class="d-flex align-items-center gap-2 mb-1">
+        <span class="badge bg-primary-subtle text-primary border border-primary-subtle px-2 py-1">
+          <i class="bi bi-building me-1"></i>Кафедра
+        </span>
+      </div>
+      <h1 class="page-title mb-0">{{ department.name }}</h1>
+    </div>
+  </div>
+{% endblock %}
+{% block content %}
+  <div class="row g-4">
+    <div class="col-lg-8">
+      <div class="card content-card mb-4">
+        <div class="card-body p-4 p-md-5">
+          <div class="d-flex align-items-center gap-3 p-3 bg-light rounded-3 border mb-4">
+            <div class="dept-head-avatar">
+              <i class="bi bi-person-workspace fs-2 text-primary"></i>
+            </div>
+            <div>
+              <div class="small text-muted text-uppercase fw-bold">Завідувач кафедри</div>
+              <div class="fs-5 fw-bold text-dark">{{ department.head }}</div>
+            </div>
+          </div>
+          <div class="section-title-wrap mb-3">
+            <span class="section-subtitle">Освітня діяльність</span>
+            <h2 class="card-section-title">Випускові спеціальності</h2>
+          </div>
+          <ul class="dept-programs-list list-unstyled mb-5">
+            {% for prog in department.programs.all %}
+              <li class="mb-2">
+                <a href="{% url 'faculty:program_detail' prog.id %}"
+                   class="dept-program-item d-flex align-items-center">
+                  <span class="badge-code me-2">{{ prog.code }}</span>
+                  <span class="text-dark fw-semibold">{{ prog.name }}</span>
+                </a>
+              </li>
+            {% empty %}
+              <li class="text-muted fst-italic">Кафедра наразі не закріплена як випускова.</li>
+            {% endfor %}
+          </ul>
+          <div class="section-title-wrap mb-3">
+            <span class="section-subtitle">Склад кафедри</span>
+            <h2 class="card-section-title">Викладацький склад</h2>
+          </div>
+          <div class="table-responsive">
+            <table class="table modern-table align-middle">
+              <thead>
+                <tr>
+                  <th scope="col" style="width: 40%;">ПІБ викладача</th>
+                  <th scope="col" style="width: 30%;">Посада</th>
+                  <th scope="col" style="width: 30%;">Науковий ступінь</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for prof in professors %}
+                  <tr>
+                    <td>
+                      <div class="fw-bold text-dark">
+                        <i class="bi bi-person text-secondary me-1"></i>{{ prof.name }}
+                      </div>
+                    </td>
+                    <td>
+                      <span class="badge bg-secondary-subtle text-secondary-emphasis border border-secondary-subtle px-2 py-1">
+                        {{ prof.position }}
+                      </span>
+                    </td>
+                    <td>
+                      <span class="text-secondary">{{ prof.degree }}</span>
+                    </td>
+                  </tr>
+                {% empty %}
+                  <tr>
+                    <td colspan="3"
+                        class="text-center text-muted py-4">Інформація про викладачів кафедри наразі оновлюється.</td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="card content-card mb-4">
+        <div class="card-body p-4">
+          <div class="small text-muted text-uppercase fw-bold mb-2">Навігація</div>
+          <a href="{% url 'faculty:department_list' %}"
+             class="btn btn-outline-secondary w-100 d-flex align-items-center justify-content-center gap-2">
+            <i class="bi bi-arrow-left"></i> До списку кафедр
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

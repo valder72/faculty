@@ -1,0 +1,63 @@
+import django.db.models.deletion
+from django.db import migrations, models
+
+
+class Migration(migrations.Migration):
+
+    initial = True
+
+    dependencies = [
+    ]
+
+    operations = [
+        migrations.CreateModel(
+            name='Department',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('name', models.CharField(max_length=100)),
+                ('head', models.CharField(max_length=100)),
+            ],
+        ),
+        migrations.CreateModel(
+            name='FacultyInfo',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('title', models.CharField(max_length=200)),
+                ('description', models.TextField()),
+                ('dean_name', models.CharField(blank=True, max_length=150)),
+                ('address', models.CharField(blank=True, max_length=255)),
+                ('phone', models.CharField(blank=True, max_length=50)),
+                ('email', models.EmailField(blank=True, max_length=254)),
+            ],
+        ),
+        migrations.CreateModel(
+            name='Program',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('name', models.CharField(max_length=100)),
+                ('code', models.CharField(max_length=100)),
+                ('description', models.TextField()),
+                ('coordinator_name', models.CharField(max_length=100)),
+                ('coordinator_contact', models.CharField(max_length=100)),
+                ('department', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='programs', to='faculty.department')),
+            ],
+        ),
+        migrations.CreateModel(
+            name='Discipline',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('name', models.CharField(max_length=150)),
+                ('program', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='disciplines', to='faculty.program')),
+            ],
+        ),
+        migrations.CreateModel(
+            name='Teacher',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('name', models.CharField(max_length=100)),
+                ('position', models.CharField(max_length=100)),
+                ('degree', models.CharField(max_length=100)),
+                ('department', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='teachers', to='faculty.department')),
+            ],
+        ),
+    ]
