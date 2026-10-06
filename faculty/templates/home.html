@@ -9,7 +9,7 @@
           <div class="hero-badge mb-3">
             <i class="bi bi-mortarboard-fill me-1"></i> НаУКМА • Економічна освіта
           </div>
-          <h1 class="hero-title">{{ faculty.title|default:"Факультет економічних наук" }}</h1>
+          <h1 class="hero-title">{{ faculty.title|default:"Факультет економічних наук НаУКМА" }}</h1>
           <p class="hero-lead">
             Підготовка провідних аналітиків, економістів та фінансистів на принципах академічної доброчесності, європейських стандартів та критичного мислення.
           </p>
@@ -50,10 +50,7 @@
               {{ faculty.description|linebreaks }}
             {% else %}
               <p>
-                Факультет економічних наук Національного університету «Києво-Могилянська академія» — один із провідних осередків сучасної економічної освіти в Україні. Факультет поєднує ґрунтовну теоретичну підготовку з прикладними аналітичними навичками.
-              </p>
-              <p>
-                Наші випускники успішно працюють в інвестиційних компаніях, Національному банку України, аналітичних центрах, аудиторських фірмах «Великої четвірки» та провідних технологічних корпораціях.
+                Факультет економічних наук (ФЕН) заснований у 2000 році. Наш слоган — «ЗРОСТАЙМО!». Ми поєднуємо принципи Liberal Arts Education (вільне творче навчання), широку базову економічну освіту на молодших курсах та профільну спеціалізацію на старших курсах із глибокою інтеграцією в бізнес-середовище.
               </p>
             {% endif %}
           </div>
@@ -64,46 +61,61 @@
       <div class="card content-card h-100">
         <div class="card-body p-4 p-md-5">
           <div class="section-title-wrap mb-3">
-            <span class="section-subtitle">Звʼязок</span>
+            <span class="section-subtitle">Керівництво та звʼязок</span>
             <h2 class="card-section-title">Контакти деканату</h2>
           </div>
-          {% if faculty.contact %}
-            <div class="prose-content mb-4">{{ faculty.contact|linebreaks }}</div>
-          {% else %}
-            <ul class="contact-list list-unstyled mb-4">
+          <ul class="contact-list list-unstyled mb-4">
+            {% if faculty.dean_name %}
               <li class="contact-item">
                 <div class="contact-icon-box">
-                  <i class="bi bi-geo-alt-fill"></i>
+                  <i class="bi bi-person-workspace"></i>
                 </div>
                 <div>
-                  <div class="contact-label">Адреса деканату</div>
-                  <div class="contact-value">вул. Волоська, 8/5, 6 корпус, кімн. 402, Київ, 04070</div>
+                  <div class="contact-label">Декан факультету</div>
+                  <div class="contact-value fw-semibold">{{ faculty.dean_name }}</div>
                 </div>
               </li>
-              <li class="contact-item">
-                <div class="contact-icon-box">
-                  <i class="bi bi-envelope-fill"></i>
+            {% endif %}
+            <li class="contact-item">
+              <div class="contact-icon-box">
+                <i class="bi bi-geo-alt-fill"></i>
+              </div>
+              <div>
+                <div class="contact-label">Адреса деканату</div>
+                <div class="contact-value">{{ faculty.address|default:"м. Київ, вул. Волоська, 8/5, 6 корпус, кімн. 406" }}</div>
+              </div>
+            </li>
+            <li class="contact-item">
+              <div class="contact-icon-box">
+                <i class="bi bi-envelope-fill"></i>
+              </div>
+              <div>
+                <div class="contact-label">Електронна пошта</div>
+                <div class="contact-value">
+                  {% if faculty.email %}
+                    <a href="mailto:{{ faculty.email }}">{{ faculty.email }}</a>
+                  {% else %}
+                    <a href="mailto:gluschenkosv@ukma.edu.ua">gluschenkosv@ukma.edu.ua</a>
+                  {% endif %}
                 </div>
-                <div>
-                  <div class="contact-label">Електронна пошта</div>
-                  <div class="contact-value">
-                    <a href="mailto:fen@ukma.edu.ua">fen@ukma.edu.ua</a>
-                  </div>
-                </div>
-              </li>
-              <li class="contact-item">
-                <div class="contact-icon-box">
-                  <i class="bi bi-telephone-fill"></i>
-                </div>
-                <div>
-                  <div class="contact-label">Телефон деканату</div>
-                  <div class="contact-value">
+              </div>
+            </li>
+            <li class="contact-item">
+              <div class="contact-icon-box">
+                <i class="bi bi-telephone-fill"></i>
+              </div>
+              <div>
+                <div class="contact-label">Телефон деканату</div>
+                <div class="contact-value">
+                  {% if faculty.phone %}
+                    <a href="tel:{{ faculty.phone }}">{{ faculty.phone }}</a>
+                  {% else %}
                     <a href="tel:+380444256042">+38 (044) 425-60-42</a>
-                  </div>
+                  {% endif %}
                 </div>
-              </li>
-            </ul>
-          {% endif %}
+              </div>
+            </li>
+          </ul>
           <div class="pt-2 border-top">
             <div class="quick-links-title mb-2">Швидкі розділи:</div>
             <div class="row g-2">

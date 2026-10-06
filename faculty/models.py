@@ -47,9 +47,12 @@ class Teacher(models.Model):
 
 
 class FacultyInfo(models.Model):
-    title = models.CharField(max_length=100)
+    title = models.CharField(max_length=200)
     description = models.TextField()
-    contact = models.CharField(max_length=100)
+    dean_name = models.CharField(max_length=150, blank=True)
+    address = models.CharField(max_length=255, blank=True)
+    phone = models.CharField(max_length=50, blank=True)
+    email = models.EmailField(blank=True)
 
     def __str__(self):
         return self.title
