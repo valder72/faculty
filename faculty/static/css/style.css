@@ -1,7 +1,4 @@
-/* ══════════════════════════════════════════════════════════
-   НаУКМА — Факультет економічних наук
-   Modern Academic Theme & Typography Stylesheet
-   ══════════════════════════════════════════════════════════ */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
 :root {
   --primary-navy: #00224d;
@@ -73,9 +70,6 @@ a:hover {
   color: #0369a1;
 }
 
-/* ══════════════════════════════════════════════════════════
-   HEADER & NAVBAR
-   ══════════════════════════════════════════════════════════ */
 .site-header {
   background-color: var(--primary-navy);
   background-image: linear-gradient(180deg, #00224d 0%, #001b3d 100%);
@@ -142,7 +136,7 @@ a:hover {
   letter-spacing: -0.01em;
 }
 
-/* ── Navigation Links ── */
+
 .navbar-nav .nav-link {
   color: rgba(255, 255, 255, 0.85) !important;
   font-size: 0.95rem;
@@ -175,9 +169,6 @@ a:hover {
   box-shadow: 0 0 0 0.2rem rgba(34, 197, 94, 0.3) !important;
 }
 
-/* ══════════════════════════════════════════════════════════
-   HERO SECTION (HOME)
-   ══════════════════════════════════════════════════════════ */
 .hero-section {
   background: linear-gradient(135deg, #001b3d 0%, #00285d 50%, #0a3d82 100%);
   color: #ffffff;
@@ -283,9 +274,6 @@ a:hover {
   filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.3));
 }
 
-/* ══════════════════════════════════════════════════════════
-   PAGE HEADER (INNER PAGES)
-   ══════════════════════════════════════════════════════════ */
 .page-header {
   background: linear-gradient(135deg, #001f47 0%, #08336d 100%);
   padding: 2.2rem 0;
@@ -332,9 +320,6 @@ a:hover {
   color: #64748b;
 }
 
-/* ══════════════════════════════════════════════════════════
-   CARDS & CONTENT WRAPPERS
-   ══════════════════════════════════════════════════════════ */
 .content-card,
 .program-card,
 .department-card,
@@ -380,7 +365,6 @@ a:hover {
   letter-spacing: -0.01em;
 }
 
-/* ── Prose Content ── */
 .prose-content {
   color: #334155;
   font-size: 0.98rem;
@@ -396,9 +380,6 @@ a:hover {
   margin-bottom: 0;
 }
 
-/* ══════════════════════════════════════════════════════════
-   CONTACT LIST & INFO
-   ══════════════════════════════════════════════════════════ */
 .contact-list {
   display: flex;
   flex-direction: column;
@@ -479,9 +460,6 @@ a:hover {
   border-color: #cbd5e1;
 }
 
-/* ══════════════════════════════════════════════════════════
-   FEATURE ITEMS (WHY CHOOSE)
-   ══════════════════════════════════════════════════════════ */
 .feature-item {
   background-color: var(--bg-card);
   border: 1px solid var(--border-light);
@@ -526,9 +504,6 @@ a:hover {
   line-height: 1.6;
 }
 
-/* ══════════════════════════════════════════════════════════
-   PROGRAMS & DEPARTMENTS LISTINGS
-   ══════════════════════════════════════════════════════════ */
 .badge-code {
   display: inline-block;
   background-color: #eff6ff;
@@ -569,7 +544,6 @@ a:hover {
   margin-bottom: 1.25rem;
 }
 
-/* ── Coordinator Box ── */
 .coordinator-box {
   background-color: #f0fdf4;
   border: 1px solid #bbf7d0;
@@ -599,7 +573,6 @@ a:hover {
   font-size: 0.85rem;
 }
 
-/* ── Disciplines list in details ── */
 .disciplines-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -618,7 +591,6 @@ a:hover {
   font-weight: 500;
 }
 
-/* ── Department listings ── */
 .dept-head-info {
   font-size: 0.9rem;
 }
@@ -645,9 +617,6 @@ a:hover {
   border-color: #bfdbfe;
 }
 
-/* ══════════════════════════════════════════════════════════
-   STAFF TABLE (DEPARTMENT DETAIL)
-   ══════════════════════════════════════════════════════════ */
 .modern-table {
   border-collapse: separate;
   border-spacing: 0;
@@ -686,9 +655,6 @@ a:hover {
   background-color: #f8fafc;
 }
 
-/* ══════════════════════════════════════════════════════════
-   FOOTER
-   ══════════════════════════════════════════════════════════ */
 .site-footer {
   background-color: #001529;
   border-top: 3px solid var(--accent-green);
@@ -740,9 +706,6 @@ a:hover {
   color: #ffffff;
 }
 
-/* ══════════════════════════════════════════════════════════
-   RESPONSIVE ADJUSTMENTS
-   ══════════════════════════════════════════════════════════ */
 @media (max-width: 991.98px) {
   .site-header {
     padding-top: 0.25rem;
