@@ -1,27 +1,29 @@
 from django.contrib import admin
-from .models import Department, FacultyInfo, Program, Teacher, Discipline
+
+from .models import Department, Discipline, FacultyInfo, Program, Teacher
+
 
 # Register your models here.
 @admin.register(Discipline)
 class DisciplineAdmin(admin.ModelAdmin):
-  list_display = ("name", "program")
+    list_display = ("name", "program")
 
 
 @admin.register(Program)
 class ProgramAdmin(admin.ModelAdmin):
-  list_display = ("code", "name", "department")
+    list_display = ("code", "name", "department")
 
 
 @admin.register(Department)
 class DepartmentAdmin(admin.ModelAdmin):
-  list_display = ("name", "head")
+    list_display = ("name", "head")
 
 
 @admin.register(Teacher)
 class TeacherAdmin(admin.ModelAdmin):
-  list_display = ("name", "position", "degree", "department")
+    list_display = ("name", "position", "degree", "department")
 
 
 @admin.register(FacultyInfo)
 class FacultyInfoAdmin(admin.ModelAdmin):
-  list_display = ("title",)
+    list_display = ("title",)

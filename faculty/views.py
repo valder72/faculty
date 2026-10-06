@@ -1,27 +1,34 @@
-from django.shortcuts import render, get_object_or_404
-from .models import FacultyInfo, Department, Program
+from django.shortcuts import get_object_or_404, render
+
+from .models import Department, FacultyInfo, Program
+
 
 # Create your views here.
 def home(request):
     faculty = FacultyInfo.objects.first()
-    return render(request, 'home.html', {'faculty': faculty})
+    return render(request, "home.html", {"faculty": faculty})
+
 
 def program_list(request):
     programs = Program.objects.all()
-    return render(request, 'programs/list.html', {'programs': programs})
+    return render(request, "programs/list.html", {"programs": programs})
 
 
 def program_detail(request, program_id):
     program = get_object_or_404(Program, pk=program_id)
-    return render(request, 'programs/detail.html', {'program': program})
+    return render(request, "programs/detail.html", {"program": program})
 
 
 def department_list(request):
-    departments = Department.objects.prefetch_related('programs').all()
-    return render(request, 'departments/list.html', {'departments': departments})
+    departments = Department.objects.prefetch_related("programs").all()
+    return render(request, "departments/list.html", {"departments": departments})
 
 
 def department_detail(request, department_id):
     department = get_object_or_404(Department, pk=department_id)
     professors = department.teachers.all()
-    return render(request, 'departments/detail.html', {'department': department, 'professors': professors})
+    return render(
+        request,
+        "departments/detail.html",
+        {"department": department, "professors": professors},
+    )
