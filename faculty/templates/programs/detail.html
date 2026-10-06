@@ -1,43 +1,91 @@
-{% extends 'base.html' %}
-
-{% block title %}{{ program.name }} | ФЕН НаУКМА{% endblock %}
-
-{% block content %}
-<article class="card">
-  <span class="badge badge-code">Код: {{ program.code }}</span>
-  <h2 style="margin-top: 0.5rem;">{{ program.name }}</h2>
-
-  <p class="card-meta">
-    Випускова кафедра:
-    <a href="{% url 'faculty:department_detail' program.department.id %}">{{ program.department.name }}</a>
-  </p>
-
-  <section style="margin: 1.5rem 0;">
-    <h3>Опис спеціальності</h3>
-    <div>
-      {{ program.description|linebreaks }}
+{% extends "base.html" %}
+{% block title %}{{ program.name }} | Факультет економічних наук НаУКМА{% endblock %}
+{% block hero %}
+  <div class="page-header">
+    <div class="container">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="{% url 'faculty:home' %}"><i class="bi bi-house me-1"></i>Головна</a>
+          </li>
+          <li class="breadcrumb-item">
+            <a href="{% url 'faculty:program_list' %}">Освітні програми</a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">{{ program.name }}</li>
+        </ol>
+      </nav>
+      <div class="d-flex flex-wrap align-items-center gap-3">
+        <span class="badge-code fs-6">{{ program.code }}</span>
+        <h1 class="page-title mb-0">{{ program.name }}</h1>
+      </div>
     </div>
-  </section>
-
-  <section style="margin: 1.5rem 0;">
-    <h3>Дисципліни, що вивчаються</h3>
-    <ul class="disciplines-list">
-    {% for discipline in program.disciplines.all %}
-        <li>{{ discipline.name }}</li>
-    {% empty %}
-        <li>Список дисциплін уточнюється.</li>
-    {% endfor %}
-    </ul>
-  </section>
-
-  <section style="margin-top: 1.5rem; background: var(--bg-main); padding: 1rem; border-radius: 4px;">
-    <h3>Приймальна комісія та координація набору</h3>
-    <p><strong>Координатор:</strong> {{ program.coordinator_name }}</p>
-    <p><strong>Контактний зв'язок:</strong> {{ program.coordinator_contact }}</p>
-  </section>
-
-  <p style="margin-top: 1.5rem;">
-    <a href="{% url 'faculty:program_list' %}">&larr; Повернутися до списку спеціальностей</a>
-  </p>
-</article>
+  </div>
+{% endblock %}
+{% block content %}
+  <div class="row g-4">
+    <div class="col-lg-8">
+      <div class="card content-card mb-4">
+        <div class="card-body p-4 p-md-5">
+          <div class="d-flex align-items-center gap-2 mb-4 pb-3 border-bottom">
+            <span class="text-muted"><i class="bi bi-building me-1"></i>Випускова кафедра:</span>
+            <a href="{% url 'faculty:department_detail' program.department.id %}"
+               class="fw-semibold text-primary text-decoration-none">{{ program.department.name }}</a>
+          </div>
+          <div class="section-title-wrap mb-3">
+            <span class="section-subtitle">Програма</span>
+            <h2 class="card-section-title">Опис спеціальності</h2>
+          </div>
+          <div class="prose-content mb-5">{{ program.description|linebreaks }}</div>
+          <div class="section-title-wrap mb-3">
+            <span class="section-subtitle">Навчальний план</span>
+            <h2 class="card-section-title">Основні навчальні дисципліни</h2>
+          </div>
+          <ul class="disciplines-grid list-unstyled mb-0">
+            {% for discipline in program.disciplines.all %}
+              <li class="discipline-item">
+                <i class="bi bi-check2-circle text-success me-2 fs-5"></i>
+                <span>{{ discipline.name }}</span>
+              </li>
+            {% empty %}
+              <li class="text-muted fst-italic">Список дисциплін формується та уточнюється.</li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="card content-card mb-4">
+        <div class="card-body p-4">
+          <div class="section-title-wrap mb-3">
+            <span class="section-subtitle">Консультації</span>
+            <h2 class="h5 fw-bold mb-0">Координатор набору</h2>
+          </div>
+          <div class="d-flex align-items-center gap-3 mb-3">
+            <div class="coordinator-avatar">
+              <i class="bi bi-person-badge fs-3 text-primary"></i>
+            </div>
+            <div>
+              <div class="fw-bold text-dark fs-6">{{ program.coordinator_name }}</div>
+              <small class="text-muted">Відповідальний за набір</small>
+            </div>
+          </div>
+          <div class="p-3 bg-light rounded-3 border">
+            <div class="small text-muted mb-1">
+              <i class="bi bi-chat-left-text me-1"></i>Контактні дані:
+            </div>
+            <div class="fw-semibold text-dark">{{ program.coordinator_contact }}</div>
+          </div>
+        </div>
+      </div>
+      <div class="card content-card mb-4">
+        <div class="card-body p-4">
+          <div class="small text-muted text-uppercase fw-bold mb-2">Навігація</div>
+          <a href="{% url 'faculty:program_list' %}"
+             class="btn btn-outline-secondary w-100 d-flex align-items-center justify-content-center gap-2">
+            <i class="bi bi-arrow-left"></i> Всі освітні програми
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
 {% endblock %}

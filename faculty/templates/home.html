@@ -1,38 +1,167 @@
-{% extends 'base.html' %}
-
-{% block title %}Головна | ФЕН НаУКМА{% endblock %}
-
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Головна | Факультет економічних наук НаУКМА{% endblock %}
+{% block hero %}
+  <section class="hero-section">
+    <div class="container">
+      <div class="row align-items-center gy-4">
+        <div class="col-lg-8">
+          <div class="hero-badge mb-3">
+            <i class="bi bi-mortarboard-fill me-1"></i> НаУКМА • Економічна освіта
+          </div>
+          <h1 class="hero-title">{{ faculty.title|default:"Факультет економічних наук" }}</h1>
+          <p class="hero-lead">
+            Підготовка провідних аналітиків, економістів та фінансистів на принципах академічної доброчесності, європейських стандартів та критичного мислення.
+          </p>
+          <div class="d-flex flex-wrap gap-2 mt-4">
+            <a href="{% url 'faculty:program_list' %}" class="btn btn-hero-primary">
+              <i class="bi bi-mortarboard me-2"></i>Освітні програми
+            </a>
+            <a href="{% url 'faculty:department_list' %}"
+               class="btn btn-hero-secondary">
+              <i class="bi bi-building me-2"></i>Кафедри факультету
+            </a>
+          </div>
+        </div>
+        <div class="col-lg-4 text-center d-none d-lg-block">
+          <div class="hero-emblem-wrap">
+            <img src="{% static 'images/naukma.png' %}"
+                 alt="Герб НаУКМА"
+                 width="120"
+                 height="120"
+                 class="hero-emblem" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}
 {% block content %}
-<section class="card">
-  <h2 class="section-title">{{ faculty.title|default:"Факультет економічних наук" }}</h2>
-  <div class="content-body">
-    {% if faculty.description %}
-      {{ faculty.description|linebreaks }}
-    {% else %}
-      <p>Факультет економічних наук НаУКМА готує фахівців у сфері фінансів, економіки та менеджменту з акцентом на фундаментальну аналітичну підготовку, академічну доброчесність та інтеграцію у світову бізнес-спільноту.</p>
-    {% endif %}
+  <div class="row g-4 mb-5">
+    <div class="col-lg-7">
+      <div class="card content-card h-100">
+        <div class="card-body p-4 p-md-5">
+          <div class="section-title-wrap mb-3">
+            <span class="section-subtitle">Інформація</span>
+            <h2 class="card-section-title">Про факультет</h2>
+          </div>
+          <div class="prose-content">
+            {% if faculty.description %}
+              {{ faculty.description|linebreaks }}
+            {% else %}
+              <p>
+                Факультет економічних наук Національного університету «Києво-Могилянська академія» — один із провідних осередків сучасної економічної освіти в Україні. Факультет поєднує ґрунтовну теоретичну підготовку з прикладними аналітичними навичками.
+              </p>
+              <p>
+                Наші випускники успішно працюють в інвестиційних компаніях, Національному банку України, аналітичних центрах, аудиторських фірмах «Великої четвірки» та провідних технологічних корпораціях.
+              </p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-5">
+      <div class="card content-card h-100">
+        <div class="card-body p-4 p-md-5">
+          <div class="section-title-wrap mb-3">
+            <span class="section-subtitle">Звʼязок</span>
+            <h2 class="card-section-title">Контакти деканату</h2>
+          </div>
+          {% if faculty.contact %}
+            <div class="prose-content mb-4">{{ faculty.contact|linebreaks }}</div>
+          {% else %}
+            <ul class="contact-list list-unstyled mb-4">
+              <li class="contact-item">
+                <div class="contact-icon-box">
+                  <i class="bi bi-geo-alt-fill"></i>
+                </div>
+                <div>
+                  <div class="contact-label">Адреса деканату</div>
+                  <div class="contact-value">вул. Волоська, 8/5, 6 корпус, кімн. 402, Київ, 04070</div>
+                </div>
+              </li>
+              <li class="contact-item">
+                <div class="contact-icon-box">
+                  <i class="bi bi-envelope-fill"></i>
+                </div>
+                <div>
+                  <div class="contact-label">Електронна пошта</div>
+                  <div class="contact-value">
+                    <a href="mailto:fen@ukma.edu.ua">fen@ukma.edu.ua</a>
+                  </div>
+                </div>
+              </li>
+              <li class="contact-item">
+                <div class="contact-icon-box">
+                  <i class="bi bi-telephone-fill"></i>
+                </div>
+                <div>
+                  <div class="contact-label">Телефон деканату</div>
+                  <div class="contact-value">
+                    <a href="tel:+380444256042">+38 (044) 425-60-42</a>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          {% endif %}
+          <div class="pt-2 border-top">
+            <div class="quick-links-title mb-2">Швидкі розділи:</div>
+            <div class="row g-2">
+              <div class="col-6">
+                <a href="{% url 'faculty:program_list' %}" class="quick-tile w-100">
+                  <i class="bi bi-mortarboard text-primary"></i> Програми
+                </a>
+              </div>
+              <div class="col-6">
+                <a href="{% url 'faculty:department_list' %}" class="quick-tile w-100">
+                  <i class="bi bi-building text-primary"></i> Кафедри
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-</section>
-
-<div class="grid-cards">
-  <div class="card">
-    <h3>Контакти деканату</h3>
-    {% if faculty.contact %}
-      {{ faculty.contact|linebreaks }}
-    {% else %}
-      <p><strong>Адреса:</strong> м. Київ, вул. Волоська, 8/5, 6 корпус, кімн. 402</p>
-      <p><strong>Електронна пошта:</strong> fen@ukma.edu.ua</p>
-      <p><strong>Телефон:</strong> +38 (044) 425-60-42</p>
-    {% endif %}
+  <div class="features-section mb-4">
+    <div class="text-center mb-4">
+      <span class="section-subtitle">Переваги навчання</span>
+      <h2 class="h3 fw-bold section-heading-center">Чому обирають ФЕН НаУКМА</h2>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-6 col-lg-4">
+        <div class="feature-item">
+          <div class="feature-icon">
+            <i class="bi bi-award-fill"></i>
+          </div>
+          <h3 class="feature-title">Викладачі-практики</h3>
+          <p class="feature-text">
+            Сертифіковані експерти CFA, ACCA, CAIA, FRM, фахівці Національного банку, EY, PwC та інвестиційних фондів.
+          </p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="feature-item">
+          <div class="feature-icon">
+            <i class="bi bi-globe-americas"></i>
+          </div>
+          <h3 class="feature-title">Міжнародна мобільність</h3>
+          <p class="feature-text">
+            Програми обміну Erasmus+, стипендіальні можливості та угоди подвійного диплома з європейськими університетами.
+          </p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="feature-item">
+          <div class="feature-icon">
+            <i class="bi bi-briefcase-fill"></i>
+          </div>
+          <h3 class="feature-title">Кар'єрний старт</h3>
+          <p class="feature-text">
+            Понад 90% випускників працевлаштовуються за спеціальністю на аналітичні посади ще до завершення навчання.
+          </p>
+        </div>
+      </div>
+    </div>
   </div>
-
-  <div class="card">
-    <h3>Швидка навігація</h3>
-    <p>Ознайомтеся з освітніми напрямами та науковою базою факультету:</p>
-    <ul class="disciplines-list">
-      <li><a href="{% url 'faculty:program_list' %}">Перелік освітніх програм (бакалаврат і магістратура)</a></li>
-      <li><a href="{% url 'faculty:department_list' %}">Кафедри та викладацький склад</a></li>
-    </ul>
-  </div>
-</div>
 {% endblock %}
